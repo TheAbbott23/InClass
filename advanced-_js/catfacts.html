@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="container"></div>
+
+   <button type="button" id="newFact">New Fact</button>
+
+
+<script>
+
+    function refresh (){
+    const container = document.getElementById('container')
+
+    
+
+    fetch('https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=1')
+        .then(response => response.json ())
+        .then(data => {
+
+            //console.log(data.text);
+
+            const div = document.getElementById('container');
+            div.innerText = data.text;
+
+              container.append(div)
+
+        })
+    }
+    
+    const refreshBtn = document.getElementById('newFact');
+    refreshBtn.addEventListener("click", refresh);
+
+    refresh();
+
+ 
+
+</script>
+
+</body>
+</html>

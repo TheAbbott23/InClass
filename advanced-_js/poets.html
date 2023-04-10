@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="containerofAuthors">
+   
+        <ul id='authors'></ul>   </div>
+        
+    <div id="containerofTitles">
+        <ul id="listofTitles"></ul>
+    </div>
+
+     
+    
+<script>
+
+    const authorsList = document.getElementById('authors');
+    
+    fetch('https://poetrydb.org/author')
+        .then(response =>response.json ())
+        .then(data => {
+            //console.log(data.authors);
+
+       
+         
+
+        for (let author of data.authors) {
+           // console.log(author)
+            const authorElement = document.createElement ('li');
+            authorElement.innerText = author
+            authorsList.append(authorElement);
+        }
+
+        });
+
+        authorsList.addEventListener('click', (event) => {
+            let clickedName = event.target.innerText;
+            console.log("targeted author",event.target.innerText);
+            fetch(`https:poetrydb.org/author/${clickedName}/title`)
+            .then (response => response.json())
+            .then ((data) => {
+                console.log('fetched data', data);
+                for (let titleObj of data) {
+                    console.log(titleObj);
+                    const titleElement = document.createElement('li');
+                    titleElement.innerText = titleObj.title;
+                    listofTitles.append(titleElement);
+                }
+                
+            });
+
+
+            
+        });
+        
+
+    
+
+</script>
+
+    
+</body>
+</html>
